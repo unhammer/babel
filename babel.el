@@ -233,15 +233,27 @@
   '(("Afrikaans" . "af")
     ("Albanian" . "sq")
     ("Arabic" . "ar")
+    ("Aranese" . "oc_aran")
+    ("Basque" . "eu")
     ("Belarusian" . "be")
+    ("Belgrade Serbo-Croatian" . "sh_SR")
+    ("Bengali" . "bn")
+    ("Brazilian Portuguese" . "pt_BR")
+    ("Breton" . "br")
     ("Bulgarian" . "bg")
+    ("Catalan multi" . "ca-multi") 
     ("Catalan" . "ca")
-    ("Chinese" . "zh-CN")
+    ("Chinese (Simplified)" . "zh-CN")
+    ("Chinese (Traditional)" . "zh-TW")
     ("Croatian" . "hr")
     ("Czech" . "cs")
     ("Danish" . "da")
     ("Dutch" . "nl")
+    ("English US" . "en_US")
+    ("English multi" . "en-multi")
     ("English" . "en")
+    ("Esperanto translit" . "eo-translit")
+    ("Esperanto" . "eo")
     ("Estonian" . "et")
     ("Filipino" . "tl")
     ("Finnish" . "fi")
@@ -254,6 +266,7 @@
     ("Hungarian" . "hu")
     ("Icelandic" . "is")
     ("Indonesian" . "id")
+    ("Irish Gaelic" . "ga")
     ("Irish" . "ga")
     ("Italian" . "it")
     ("Japanese" . "ja")
@@ -263,13 +276,21 @@
     ("Macedonian" . "mk")
     ("Malay" . "ms")
     ("Maltese" . "mt")
+    ("Nepali" . "ne")
+    ("Norwegian bokmål" . "nb")
+    ("Norwegian nynorsk" . "nn")
     ("Norwegian" . "no")
+    ("Occitan" . "oc")
     ("Persian" . "fa")
     ("Polish" . "pl")
     ("Portuguese" . "pt")
     ("Romanian" . "ro")
+    ("Romanian" . "ro")
     ("Russian" . "ru")
+    ("Sarajevo Serbo-Croatian" . "sh_BS")
+    ("Scottish Gaelic" . "gd")
     ("Serbian" . "sr")
+    ("Serbo-Croatian" . "sh")
     ("Slovak" . "sk")
     ("Slovenian" . "sl")
     ("Spanish" . "es")
@@ -278,9 +299,11 @@
     ("Thai" . "th")
     ("Turkish" . "tr")
     ("Ukrainian" . "uk")
+    ("Valencian Catalan" . "val")
     ("Vietnamese" . "vi")
     ("Welsh" . "cy")
-    ("Yiddish" . "yi")))
+    ("Yiddish" . "yi")
+    ("Zagreb Serbo-Croatian" . "sh_HR")))
 
 (defcustom babel-preferred-to-language "German"
   "*Default target translation language.
@@ -856,9 +879,59 @@ If optional argument HERE is non-nil, insert version number at point."
 
 ;; Google stuff ===========================================
 
-;; Google supports all languages
+;; Google supports many languages
 (defconst babel-google-languages
-  babel-languages)
+  '(("Afrikaans" . "af")
+    ("Albanian" . "sq")
+    ("Arabic" . "ar")
+    ("Belarusian" . "be")
+    ("Bulgarian" . "bg")
+    ("Catalan" . "ca")
+    ("Chinese" . "zh-CN")
+    ("Croatian" . "hr")
+    ("Czech" . "cs")
+    ("Danish" . "da")
+    ("Dutch" . "nl")
+    ("English" . "en")
+    ("Estonian" . "et")
+    ("Filipino" . "tl")
+    ("Finnish" . "fi")
+    ("French" . "fr")
+    ("Galician" . "gl")
+    ("German" . "de")
+    ("Greek" . "el")
+    ("Hebrew" . "iw")
+    ("Hindi" . "hi")
+    ("Hungarian" . "hu")
+    ("Icelandic" . "is")
+    ("Indonesian" . "id")
+    ("Irish" . "ga")
+    ("Italian" . "it")
+    ("Japanese" . "ja")
+    ("Korean" . "ko")
+    ("Latvian" . "lv")
+    ("Lithuanian" . "lt")
+    ("Macedonian" . "mk")
+    ("Malay" . "ms")
+    ("Maltese" . "mt")
+    ("Norwegian" . "no")
+    ("Persian" . "fa")
+    ("Polish" . "pl")
+    ("Portuguese" . "pt")
+    ("Romanian" . "ro")
+    ("Russian" . "ru")
+    ("Serbian" . "sr")
+    ("Slovak" . "sk")
+    ("Slovenian" . "sl")
+    ("Spanish" . "es")
+    ("Swahili" . "sw")
+    ("Swedish" . "sv")
+    ("Thai" . "th")
+    ("Turkish" . "tr")
+    ("Ukrainian" . "uk")
+    ("Vietnamese" . "vi")
+    ("Welsh" . "cy")
+    ("Yiddish" . "yi")))
 
 (defun babel-google-translation (from to)
   ;; Google can always translate in both directions
@@ -894,37 +967,51 @@ If optional argument HERE is non-nil, insert version number at point."
 	 (cdr (assoc 'translatedText (assoc 'responseData json-response))))
       (error "Google API has changed ; please look for a new version of babel.el"))))
 
-(defconst babel-apertium-languages
-  '(("English" . "en")
-    ("Spanish" . "es")
-    ("Esperanto" . "eo")))
+;; Apertium stuff ===========================================
 
- (defun babel-apertium-translation (from to)
-   (member (cons from to)
-	   '(("en" . "es")
-	     ("es" . "en")
-	     ("en" . "eo"))))
+(defcustom babel-apertium-service "http://www.neuralnoise.com:6173/RPC2"
+  "The URL of your favourite Apertium xml-rpc service."
+  :type 'string
+  :group 'babel)
+
+(defvar babel-apertium-pairs 
+  '(("oc" . "ca") ("ca" . "oc") ("it" . "en") ("fr" . "br") ("es" . "it") ("mk" . "sl") ("pt_BR" . "es") ("en_US" . "ca") ("ga" . "gd") ("sv" . "da") ("en_US" . "it") ("pt" . "es") ("es-fr" . "eco") ("gl" . "es") ("es-multi" . "ca") ("mk" . "sh") ("eo-translit" . "es") ("nn" . "nb") ("it" . "es") ("ca" . "fr") ("es" . "ro") ("es" . "oc_aran") ("en" . "gl") ("fr" . "es") ("es" . "gl") ("oc_aran" . "ca") ("pt" . "gl") ("ca" . "ro") ("es" . "fr") ("sh_HR" . "mk") ("ca" . "pt") ("fr" . "ca") ("es" . "oc") ("en" . "is") ("en-ca" . "val") ("gd" . "ga") ("ca-es" . "val") ("es" . "pt") ("es" . "eu") ("nb" . "nn") ("ro" . "es") ("eo-translit" . "ca") ("ca_valencia" . "es") ("gl" . "en") ("es" . "en") ("da" . "sv") ("en" . "es") ("eo" . "en") ("en" . "ca") ("gl" . "pt") ("eo" . "es") ("eo" . "ca") ("ca" . "es") ("sh_SR" . "mk") ("en" . "eo") ("sh_BS" . "mk") ("es" . "ca") ("bn" . "en") ("ca" . "oc_aran") ("en_US" . "es") ("en-multi" . "ca") ("oc" . "es") ("ca-multi" . "es") ("pt" . "ca") ("ca-multi" . "en") ("ca" . "en") ("fr-es" . "eco") ("oc_aran" . "es") ("es-ca" . "val") ("ro" . "ca") ("en" . "it"))
+  "Use `babel-apertium-update-pairs' to update this using `apertium-service'.")
+
+(defun babel-apertium-set-pairs (pairs)
+  (message "Apertium language pairs fetched, updating `babel-apertium-pairs'.")
+  (setq babel-apertium-pairs
+	(mapcar (lambda (pair)
+		  (cons (cdr (assoc "destLang" pair))
+			(cdr (assoc "srcLang" pair))))
+		pairs)))
+
+(defun babel-apertium-update-pairs ()
+  (interactive)
+  (unless (require 'xml-rpc nil 'noerror)
+    (error "The Apertium backed uses xml-rpc, get it from http://www.emacswiki.org/emacs/xml-rpc.el"))
+  ;; What am I doing wrong with the xml-rpc async call? TODO:
+  ;; (xml-rpc-method-call-async 'babel-apertium-set-pairs "http://www.neuralnoise.com:6173/RPC2" 'languagePairs)
+  (babel-apertium-set-pairs
+   (xml-rpc-method-call babel-apertium-service 'languagePairs)))
+
+;;; The required backend functions:
+(defun babel-apertium-translation (from to)
+  (member (cons from to) babel-apertium-pairs))
 
 (defun babel-apertium-fetch (msg from to)
-  "Connect to apertium server and request the translation."
+  "Connect to Apertium server and request the translation."
+  (unless (require 'xml-rpc nil 'noerror)
+    (error "The Apertium backed uses xml-rpc, get it from http://www.emacswiki.org/emacs/xml-rpc.el"))
+  ;; TODO: can we make this async? Or would that require too many changes elsewhere?
   (if (not (babel-apertium-translation from to))
       (error "Apertium can't translate from %s to %s" from to)
-     (let* ((lang-pair (concat from "-" to))
-	    (pairs `(("pair" . ,lang-pair)
-		     ("text" . ,msg)))
-	    (request-url
-	     (concat "http://www.neuralnoise.com/ApertiumWeb2/xml.php?"
-		     (babel-form-encode pairs)))
-	    (url-request-method "GET"))
-       (babel-url-retrieve request-url))))
-
+    (insert
+     (cdar (xml-rpc-method-call babel-apertium-service 'translate msg from to)))))
 
 (defun babel-apertium-wash ()
-  "Extract the useful information from the XML returned by apertium."
-   (if (not (babel-wash-regex
-	     "<translation>\\(\\(.\\|\n\\)*?\\)</translation>"))
-	     (error "Apertium XML has changed ; please look for a
-	     new version of babel.el")))
+  "`babel-apertium-fetch' just inserts the translation and
+nothing else, no cleaning necessary.")
 
 ;; TODO: ecs.freetranslation.com
 
